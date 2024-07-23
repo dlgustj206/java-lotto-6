@@ -17,9 +17,9 @@ public class InputView {
         return numberList(Console.readLine());
     }
 
-    public int inputBonusNumber() {
+    public String inputBonusNumber() {
         System.out.println("보너스 번호를 입력해 주세요.");
-        return Integer.parseInt(Console.readLine());
+        return Console.readLine();
     }
 
     public List<Integer> numberList(String input) {
