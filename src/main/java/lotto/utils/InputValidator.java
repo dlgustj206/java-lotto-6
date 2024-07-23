@@ -29,4 +29,15 @@ public class InputValidator {
             }
         }
     }
+
+    public static void bonusNumberValidator(String inputNumber) {
+        if (inputNumber.isEmpty()) {
+            throw new EmptyInputException();
+        }
+
+        int num = Integer.parseInt(inputNumber);
+        if (num < 1 || num > 45) {
+            throw new OutOfRangeNumberException();
+        }
+    }
 }
