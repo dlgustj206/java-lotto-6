@@ -30,7 +30,7 @@ public class InputValidator {
         }
     }
 
-    public static void bonusNumberValidator(String inputNumber) {
+    public static void bonusNumberValidator(String inputNumber, List<Integer> winningNumbers) {
         if (inputNumber.isEmpty()) {
             throw new EmptyInputException();
         }
@@ -38,6 +38,9 @@ public class InputValidator {
         int num = Integer.parseInt(inputNumber);
         if (num < 1 || num > 45) {
             throw new OutOfRangeNumberException();
+        }
+        if (winningNumbers.contains(num)) {
+            throw new DuplicatedNumberException();
         }
     }
 }
