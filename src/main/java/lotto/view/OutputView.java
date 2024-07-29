@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class OutputView {
 
-    public void printBuyAmount(int num) {
+    public void printBuyAmount(Integer num) {
         System.out.println();
         System.out.println(num + "개를 구매했습니다.");
     }
