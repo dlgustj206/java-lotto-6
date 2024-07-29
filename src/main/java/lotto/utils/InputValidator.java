@@ -18,9 +18,6 @@ public class InputValidator {
         if (inputNumber.isEmpty()) {
             throw new EmptyInputException();
         }
-        if (inputNumber.size() != 6) {
-            throw new InvalidLottoSizeException();
-        }
 
         for (Integer number : inputNumber) {
             if (number == null) {
@@ -29,11 +26,6 @@ public class InputValidator {
             if (number < 1 || number > 45) {
                 throw new OutOfRangeNumberException();
             }
-        }
-
-        Set<Integer> uniqueNumbers = new HashSet<>(inputNumber);
-        if (uniqueNumbers.size() != inputNumber.size()) {
-            throw new DuplicatedNumberException();
         }
     }
 
