@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumberList;
+import lotto.domain.Profit;
 import lotto.domain.Rank;
 import lotto.utils.InputValidator;
 import lotto.view.InputView;
@@ -35,6 +36,10 @@ public class LottoController {
 
         Map<Rank, Integer> result = calculateRank(lottoTickets, winningLotto, bonusNumber);
         outputView.printRank(result);
+
+        Profit profit = new Profit(result, amount);
+        Double profitRate = profit.calculateProfitRate();
+        outputView.printProfitRate(profitRate);
     }
 
     public Integer initBuyAmount() {
