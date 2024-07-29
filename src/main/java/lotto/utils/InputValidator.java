@@ -2,7 +2,9 @@ package lotto.utils;
 
 import lotto.utils.exception.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class InputValidator {
 
@@ -27,6 +29,11 @@ public class InputValidator {
             if (number < 1 || number > 45) {
                 throw new OutOfRangeNumberException();
             }
+        }
+
+        Set<Integer> uniqueNumbers = new HashSet<>(inputNumber);
+        if (uniqueNumbers.size() != inputNumber.size()) {
+            throw new DuplicatedNumberException();
         }
     }
 
