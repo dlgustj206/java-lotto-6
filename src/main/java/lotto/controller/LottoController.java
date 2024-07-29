@@ -1,9 +1,13 @@
 package lotto.controller;
 
+import lotto.domain.LottoNumberList;
 import lotto.utils.InputValidator;
 import lotto.utils.exception.AmountNotDivisibleByThousandException;
 import lotto.view.InputView;
 import lotto.view.OutputView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoController {
 
@@ -19,6 +23,9 @@ public class LottoController {
         Integer amount = initBuyAmount();
         Integer ticketCount = amount / 1000;
         outputView.printBuyAmount(ticketCount);
+
+        List<List<Integer>> lottoTickets = generateLottoTickets(ticketCount);
+        outputView.printLottoTickets(lottoTickets);
     }
 
     public Integer initBuyAmount() {
@@ -32,5 +39,13 @@ public class LottoController {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    public List<List<Integer>> generateLottoTickets(Integer ticketCount) {
+        List<List<Integer>> lottoTickets = new ArrayList<>();
+        for (int i = 0; i < ticketCount; i++) {
+            lottoTickets.add(LottoNumberList.generateLottoNumbers());
+        }
+        return lottoTickets;
     }
 }
