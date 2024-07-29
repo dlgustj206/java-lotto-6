@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import lotto.domain.Lotto;
 import lotto.domain.LottoNumberList;
 import lotto.utils.InputValidator;
 import lotto.view.InputView;
@@ -23,10 +24,10 @@ public class LottoController {
         Integer ticketCount = amount / 1000;
         outputView.printBuyAmount(ticketCount);
 
-        List<List<Integer>> lottoTickets = generateLottoTickets(ticketCount);
+        List<Lotto> lottoTickets = generateLottoTickets(ticketCount);
         outputView.printLottoTickets(lottoTickets);
 
-        List<Integer> winningNumbers = initWinningNumbers();
+        Lotto winningNumbers = initWinningNumbers();
         Integer bonusNumber = initBonusNumber(winningNumbers);
     }
 
@@ -43,31 +44,33 @@ public class LottoController {
         }
     }
 
-    public List<List<Integer>> generateLottoTickets(Integer ticketCount) {
-        List<List<Integer>> lottoTickets = new ArrayList<>();
+    public List<Lotto> generateLottoTickets(Integer ticketCount) {
+        List<Lotto> lottoTickets = new ArrayList<>();
         for (int i = 0; i < ticketCount; i++) {
-            lottoTickets.add(LottoNumberList.generateLottoNumbers());
+            List<Integer> numbers = LottoNumberList.generateLottoNumbers();
+            Lotto lotto = new Lotto(numbers);
+            lottoTickets.add(lotto);
         }
         return lottoTickets;
     }
 
-    public List<Integer> initWinningNumbers() {
+    public Lotto initWinningNumbers() {
         while (true) {
             try {
                 List<Integer> winningNumbers = inputView.inputWinningNumber();
                 InputValidator.winningNumberValidator(winningNumbers);
-                return winningNumbers;
+                return new Lotto(winningNumbers);
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    public Integer initBonusNumber(List<Integer> winningNumbers) {
+    public Integer initBonusNumber(Lotto winningNumbers) {
         while (true) {
             try {
                 String bonusNumber = inputView.inputBonusNumber();
-                InputValidator.bonusNumberValidator(bonusNumber, winningNumbers);
+                InputValidator.bonusNumberValidator(bonusNumber, winningNumbers.getNumbers());
                 return Integer.valueOf(bonusNumber);
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());

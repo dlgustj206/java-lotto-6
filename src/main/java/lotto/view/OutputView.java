@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.domain.Lotto;
 import lotto.domain.Rank;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public class OutputView {
         System.out.println(num + "개를 구매했습니다.");
     }
 
-    public void printLottoTickets(List<List<Integer>> lottoTickets) {
-        for (List<Integer> ticket : lottoTickets) {
-            System.out.println(ticket);
+    public void printLottoTickets(List<Lotto> lottoTickets) {
+        for (Lotto ticket : lottoTickets) {
+            System.out.println(ticket.getNumbers());
         }
     }
 
