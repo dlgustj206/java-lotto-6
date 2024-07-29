@@ -27,6 +27,7 @@ public class LottoController {
         outputView.printLottoTickets(lottoTickets);
 
         List<Integer> winningNumbers = initWinningNumbers();
+        Integer bonusNumber = initBonusNumber(winningNumbers);
     }
 
     public Integer initBuyAmount() {
@@ -56,6 +57,18 @@ public class LottoController {
                 List<Integer> winningNumbers = inputView.inputWinningNumber();
                 InputValidator.winningNumberValidator(winningNumbers);
                 return winningNumbers;
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    public Integer initBonusNumber(List<Integer> winningNumbers) {
+        while (true) {
+            try {
+                String bonusNumber = inputView.inputBonusNumber();
+                InputValidator.bonusNumberValidator(bonusNumber, winningNumbers);
+                return Integer.valueOf(bonusNumber);
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
