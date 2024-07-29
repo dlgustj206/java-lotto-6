@@ -2,7 +2,6 @@ package lotto.controller;
 
 import lotto.domain.LottoNumberList;
 import lotto.utils.InputValidator;
-import lotto.utils.exception.AmountNotDivisibleByThousandException;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -26,6 +25,8 @@ public class LottoController {
 
         List<List<Integer>> lottoTickets = generateLottoTickets(ticketCount);
         outputView.printLottoTickets(lottoTickets);
+
+        List<Integer> winningNumbers = initWinningNumbers();
     }
 
     public Integer initBuyAmount() {
@@ -47,5 +48,17 @@ public class LottoController {
             lottoTickets.add(LottoNumberList.generateLottoNumbers());
         }
         return lottoTickets;
+    }
+
+    public List<Integer> initWinningNumbers() {
+        while (true) {
+            try {
+                List<Integer> winningNumbers = inputView.inputWinningNumber();
+                InputValidator.winningNumberValidator(winningNumbers);
+                return winningNumbers;
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }
