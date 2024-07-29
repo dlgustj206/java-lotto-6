@@ -2,12 +2,15 @@ package lotto.controller;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumberList;
+import lotto.domain.Rank;
 import lotto.utils.InputValidator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoController {
 
@@ -27,8 +30,11 @@ public class LottoController {
         List<Lotto> lottoTickets = generateLottoTickets(ticketCount);
         outputView.printLottoTickets(lottoTickets);
 
-        Lotto winningNumbers = initWinningNumbers();
-        Integer bonusNumber = initBonusNumber(winningNumbers);
+        Lotto winningLotto = initWinningNumbers();
+        Integer bonusNumber = initBonusNumber(winningLotto);
+
+        Map<Rank, Integer> result = calculateRank(lottoTickets, winningLotto, bonusNumber);
+        outputView.printRank(result);
     }
 
     public Integer initBuyAmount() {
@@ -76,5 +82,26 @@ public class LottoController {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    private Map<Rank, Integer> calculateRank(List<Lotto> lottoTickets, Lotto winningLotto, Integer bonusNumber) {
+        Map<Rank, Integer> rankCount = new HashMap<>();
+        for (Lotto ticket : lottoTickets) {
+            Integer matchedCount = countMatchedNumbers(ticket.getNumbers(), winningLotto.getNumbers());
+            boolean matchedBonus = ticket.getNumbers().contains(bonusNumber);
+            Rank rank = Rank.setRank(matchedCount, matchedBonus);
+            rankCount.put(rank, rankCount.getOrDefault(rank, 0) + 1);
+        }
+        return rankCount;
+    }
+
+    private Integer countMatchedNumbers(List<Integer> ticketNumbers, List<Integer> winningNumbers) {
+        int count = 0;
+        for (Integer number : ticketNumbers) {
+            if (winningNumbers.contains(number)) {
+                count++;
+            }
+        }
+        return count;
     }
 }
