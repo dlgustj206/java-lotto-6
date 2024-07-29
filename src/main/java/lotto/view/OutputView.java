@@ -2,6 +2,7 @@ package lotto.view;
 
 import lotto.domain.Rank;
 
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -9,6 +10,12 @@ public class OutputView {
     public void printBuyAmount(Integer num) {
         System.out.println();
         System.out.println(num + "개를 구매했습니다.");
+    }
+
+    public void printLottoTickets(List<List<Integer>> lottoTickets) {
+        for (List<Integer> ticket : lottoTickets) {
+            System.out.println(ticket);
+        }
     }
 
     public void printRank(Map<Rank, Integer> result) {
