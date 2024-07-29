@@ -35,7 +35,7 @@ public class LottoController {
                 Integer initAmount = Integer.valueOf(amount);
                 InputValidator.amountValidator(initAmount);
                 return initAmount;
-            } catch (AmountNotDivisibleByThousandException e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
