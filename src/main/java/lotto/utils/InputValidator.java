@@ -1,10 +1,7 @@
 package lotto.utils;
 
 import lotto.utils.exception.*;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class InputValidator {
 
