@@ -4,6 +4,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoNumberList;
 import lotto.domain.Profit;
 import lotto.domain.Rank;
+import lotto.dto.LottoTicketDto;
 import lotto.utils.InputValidator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -29,7 +30,8 @@ public class LottoController {
         outputView.printBuyAmount(ticketCount);
 
         List<Lotto> lottoTickets = generateLottoTickets(ticketCount);
-        outputView.printLottoTickets(lottoTickets);
+        List<LottoTicketDto> lottoTicketDTOs = convertLottoTicketDTOs(lottoTickets);
+        outputView.printLottoTickets(lottoTicketDTOs);
 
         Lotto winningLotto = initWinningNumbers();
         Integer bonusNumber = initBonusNumber(winningLotto);
@@ -108,5 +110,13 @@ public class LottoController {
             }
         }
         return count;
+    }
+
+    private List<LottoTicketDto> convertLottoTicketDTOs(List<Lotto> lottoTickets) {
+        List<LottoTicketDto> lottoTicketDtos = new ArrayList<>();
+        for (Lotto ticket : lottoTickets) {
+            lottoTicketDtos.add(new LottoTicketDto(ticket.getNumbers()));
+        }
+        return lottoTicketDtos;
     }
 }
