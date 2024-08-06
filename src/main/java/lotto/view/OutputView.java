@@ -1,7 +1,7 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
 import lotto.domain.Rank;
+import lotto.dto.LottoTicketDto;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +13,8 @@ public class OutputView {
         System.out.println(num + "개를 구매했습니다.");
     }
 
-    public void printLottoTickets(List<Lotto> lottoTickets) {
-        for (Lotto ticket : lottoTickets) {
+    public void printLottoTickets(List<LottoTicketDto> lottoTickets) {
+        for (LottoTicketDto ticket : lottoTickets) {
             System.out.println(ticket.getNumbers());
         }
     }
